@@ -14,17 +14,13 @@
 <div class="button" onclick="MiguInstance().loginTypeFun(data_params.mobile, callback);">获取登陆链接地址</div>
 <div class="button" onclick="MiguInstance().loginOutFun(callback);">退出当前登陆</div>
 <div class="button" onclick="MiguInstance().getUserInfoFun(callback);">获取当前登陆用户信息</div>
-<div class="button" onclick="MiguInstance().queryStrategyBYBFun(callback);">包月包策略查询</div>
-<div class="button" onclick="MiguInstance().openRingToneFun(callback);">开通彩铃功能</div>
+<div class="button" onclick="MiguInstance().openRingToneFun(openRingToneCallback);">开通彩铃功能</div>
 <div class="button"
      onclick="MiguInstance().getAuditionToneUrlFun(data_params.content_id, callback);">
     获取彩铃试听地址
 </div>
 <div class="button"
      onclick="MiguInstance().orderRingToneFun(data_params.content_id, callback);">订购彩铃
-</div>
-<div class="button" onclick="MiguInstance().giveRingToneFun(data_params.content_id, callback);">
-    赠送彩铃
 </div>
 <div class="button" onclick="MiguInstance().getUserRingBaseFun(callback);">查询个人铃音库</div>
 <div class="button" onclick="MiguInstance().setRingFun(data_params.content_id, callback);">设置默认铃音
@@ -40,12 +36,75 @@
 </div>
 
 <div class="button"
-     onclick="MiguInstance().openCPMBFun(data_params.cp_month_service_id, callback);">CP专属包月订购
+     onclick="MiguInstance().openCPMBFun(data_params.cp_month_service_id, openCPMBCallback);">CP专属包月订购
+</div>
+
+<div class="button"
+     onclick="MiguInstance().cancelCPMBFun(data_params.cp_month_service_id, cancelCPMBCallback);">CP专属包月退订
+</div>
+
+<div class="button"
+     onclick="MiguInstance().orderMonthRingFun(data_params.crbt_month_service_id, orderMonthRingCallback);">彩铃包月订购
+</div>
+
+<div class="button"
+     onclick="MiguInstance().cancelMonthRingFun(data_params.crbt_month_service_id, cancelMonthRingCallback);">彩铃包月退订
 </div>
 
 <div id="divResult"></div>
 
 <script>
+
+    function openRingToneCallback(result) {
+
+        showResult("a", "result:", result);
+
+        if (arguments.length == 2) { // 带有错误码
+            showResult("a", "result:", "policy error");
+        } else {
+            data_params.is_crbt_member = (result.resCode == return_code.success);
+        }
+    }
+
+    function openCPMBCallback(result) {
+
+        showResult("a", "result:", result);
+
+        if (arguments.length == 2) { // 带有错误码
+            showResult("a", "result:", "policy error");
+        } else {
+            data_params.is_cp_month_opened = (result.resCode == return_code.success);
+        }
+
+    }
+
+    function cancelCPMBCallback() {
+
+        showResult("a", "result:", result);
+
+        data_params.is_cp_month_opened = !(result.resCode == return_code.success);
+
+    }
+
+    function orderMonthRingCallback(result) {
+
+        showResult("a", "result:", result);
+
+        if (arguments.length == 2) { // 带有错误码
+            showResult("a", "result:", "policy error");
+        } else {
+            data_params.is_crbt_month_opened = (result.resCode == return_code.success);
+        }
+
+    }
+
+    function cancelMonthRingCallback(result) {
+
+        showResult("a", "result:", result);
+
+        data_params.is_crbt_month_opened = !(result.resCode == return_code.success);
+
+    }
 
     function callback(result) {
 
@@ -54,12 +113,19 @@
 
     window.onload = function () {
         MiguInstance().openMiGuInitFun();
+
+        data_params.mobile = "13874442470";
+        data_params.content_id = "51dd4e04fec2ac159e8c34ea4fa61afc";
+
         var tokenParam = getQueryString("token");
         if (tokenParam && (tokenParam != null && tokenParam.length != 0)) {
             data_params.token = tokenParam;
+            data_params.logined = true;
 
             MiguInstance().queryOpenRingYNFun();
-            MiguInstance().queryCPMBFun(data_params.cp_month_service_id);
+            MiguInstance().queryMonthRingYNFun();
+
+//            MiguInstance().queryCPMBFun(data_params.cp_month_service_id);
         }
 
     }

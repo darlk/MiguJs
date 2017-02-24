@@ -94,23 +94,11 @@ var migu = function () {
     };
 
     var openRingToneFun = function (callback) {
-        var params = {
-            youCallbackName: functionName(callback),
-            channelCode: data_params.channel_code,
-            token: data_params.token,
-            cpId: "",
-            bizCode: "",
-            cpparam: "",
-            salePrice: "",
-            name: "openRingTone",
-            excode: data_params.excode,
-            defSeq: ""
 
-        };
+        data_params.callback = callback;
 
-        showResult("n", "openRingTone:<br>params:", params);
+        queryStrategyBYBFun("", "4", "innerCallback.openRingToneCallback");
 
-        openRingTone(params);
     };
 
     var orderRingToneFun = function (contentId, callback) {
@@ -193,33 +181,21 @@ var migu = function () {
         queryOpenRingYN(params);
     }
 
-    var orderMonthRingFun = function (callback) {
-        var params = {
-            youCallbackName: functionName(callback),
-            channelCode: data_params.channel_code,
-            token: data_params.token,
-            serviceId: data_params.crbt_month_service_id,
-            cpId: "",
-            bizCode: "",
-            cpparam: "",
-            salePrice: "",
-            name: "orderMonthRing",
-            excode: data_params.excode,
-            defSeq: ""
-        }
+    var orderMonthRingFun = function (serviceId, callback) {
 
-        showResult("n", "orderMonthRing:<br>params:", params);
+        data_params.callback = callback;
+        data_params.crbt_month_service_id = serviceId;
 
-        orderMonthRing(params);
+        queryStrategyBYBFun(serviceId, "", "innerCallback.orderMonthRingCallback");
 
     }
 
-    var cancelMonthRingFun = function (callback) {
+    var cancelMonthRingFun = function (serviceId, callback) {
         var params = {
             youCallbackName: functionName(callback),
             channelCode: data_params.channel_code,
             token: data_params.token,
-            serviceId: data_params.crbt_month_service_id
+            serviceId: serviceId
         }
 
         showResult("n", "cancelMonthRing:<br>params:", params);
@@ -228,15 +204,15 @@ var migu = function () {
 
     }
 
-    var queryMonthRingYNFun = function (callback) {
+    var queryMonthRingYNFun = function () {
         var params = {
-            youCallbackName: functionName(callback),
+            youCallbackName: "innerCallback.queryMonthRingYNCallback",
             channelCode: data_params.channel_code,
             token: data_params.token,
             serviceId: data_params.crbt_month_service_id
         }
 
-        showResult("n", "queryMonthRingYN:<br>params:", params);
+        showResult("a", "queryMonthRingYN:<br>params:", params);
 
         queryMonthRingYN(params);
 
@@ -255,21 +231,21 @@ var migu = function () {
         queryPolicy(params);
     }
 
-    var openCPMBFun = function (cpId, callback) {
+    var openCPMBFun = function (serviceId, callback) {
 
-        data_params.cp_month_service_id = cpId;
+        data_params.cp_month_service_id = serviceId;
         data_params.callback = callback;
 
-        queryStrategyBYBFun(cpId, '', "innerCallback.openCPMBCallback")
+        queryStrategyBYBFun(serviceId, '', "innerCallback.openCPMBCallback")
 
     }
 
-    var cancelCPMBFun = function (cpId, callback) {
+    var cancelCPMBFun = function (serviceId, callback) {
         var params = {
             youCallbackName: functionName(callback),
             channelCode: data_params.channel_code,
             token: data_params.token,
-            serviceId: cpId
+            serviceId: serviceId
         }
 
         showResult("n", "cancelCPMB:<br>params:", params);
@@ -432,7 +408,7 @@ var innerCallback = (function () {
             orderRingTone(params);
 
         } else {
-            data_params.callback(result);
+            data_params.callback(result, 0);
         }
 
     }
@@ -444,7 +420,7 @@ var innerCallback = (function () {
             showResult("a", "result:", result);
 
             var params = {
-                youCallbackName: functionName(callback),
+                youCallbackName: functionName(data_params.callback),
                 channelCode: data_params.channel_code,
                 token: data_params.token,
                 contentId: contentId,
@@ -465,7 +441,7 @@ var innerCallback = (function () {
 
             getRingDownlink(params);
         } else {
-            data_params.callback(result);
+            data_params.callback(result, 0);
         }
     }
 
@@ -474,15 +450,17 @@ var innerCallback = (function () {
 
             showResult("a", "result:", result);
 
+            var bizInfoMon = result.bizInfoMon;
+
             var params = {
-                youCallbackName: functionName(callback),
+                youCallbackName: functionName(data_params.callback),
                 channelCode: data_params.channel_code,
                 token: data_params.token,
                 serviceId: data_params.cp_month_service_id,
-                cpId: "",
-                bizCode: "",
-                cpparam: "",
-                salePrice: "",
+                cpId: bizInfoMon.cpId,
+                bizCode: bizInfoMon.bizCode,
+                cpparam: bizInfoMon.cpparam,
+                salePrice: bizInfoMon.salePrice,
                 name: "openCPMB",
                 excode: data_params.excode,
                 defSeq: ""
@@ -493,7 +471,7 @@ var innerCallback = (function () {
             openCPMB(params);
 
         } else {
-            data_params.callback(result);
+            data_params.callback(result, 0);
         }
     }
 
@@ -504,7 +482,73 @@ var innerCallback = (function () {
 
     function queryCPMBCallback(result) {
         showResult("a", "result:", result);
-        data_params.is_cp_member = (result.resCode == return_code.success);
+        data_params.is_cp_month_opened = (result.resCode == return_code.success);
+    }
+
+    function queryMonthRingYNCallback(result) {
+        showResult("a", "result:", result);
+        data_params.is_crbt_month_opened = (result.resCode == return_code.success);
+    }
+
+    function orderMonthRingCallback(result) {
+
+        if (result.resCode == return_code.success) {
+
+            showResult("a", "result:", result);
+
+            var bizInfoMon = result.bizInfoMon;
+
+            var params = {
+                youCallbackName: functionName(data_params.callback),
+                channelCode: data_params.channel_code,
+                token: data_params.token,
+                serviceId: data_params.crbt_month_service_id,
+                cpId: bizInfoMon.cpId,
+                bizCode: bizInfoMon.bizCode,
+                cpparam: bizInfoMon.cpparam,
+                salePrice: bizInfoMon.salePrice,
+                name: "orderMonthRing",
+                excode: data_params.excode,
+                defSeq: ""
+            }
+
+            showResult("a", "orderMonthRing:<br>params:", params);
+
+            orderMonthRing(params);
+        } else {
+            data_params.callback(result, 0); // 获取policy出错
+        }
+
+
+    }
+
+    function openRingToneCallback(result) {
+
+        if (result.resCode == return_code.success) {
+            showResult("a", "result:", result);
+
+            var bizInfoMon = result.bizInfoMon;
+
+            var params = {
+                youCallbackName: functionName(callback),
+                channelCode: data_params.channel_code,
+                token: data_params.token,
+                cpId: bizInfoMon.cpId,
+                bizCode: bizInfoMon.bizCode,
+                cpparam: bizInfoMon.cpparam,
+                salePrice: bizInfoMon.salePrice,
+                name: "openRingTone",
+                excode: data_params.excode,
+                defSeq: ""
+
+            };
+
+            showResult("a", "openRingTone:<br>params:", params);
+
+            openRingTone(params);
+        } else {
+            data_params.callback(result, 0); // 获取policy出错
+        }
     }
 
     return {
@@ -513,6 +557,9 @@ var innerCallback = (function () {
         openCPMBCallback: openCPMBCallback,
         queryOpenRingYNCallback: queryOpenRingYNCallback,
         queryCPMBCallback: queryCPMBCallback,
+        queryMonthRingYNCallback: queryMonthRingYNCallback,
+        orderMonthRingCallback: orderMonthRingCallback,
+        openRingToneCallback: openRingToneCallback,
     };
 })();
 
@@ -543,20 +590,18 @@ var data_params = {
     api_key: '',
     channel_code: '002100O', // 渠道号
     token: '',
-    mobile: '13874442470',
-    content_id: '51dd4e04fec2ac159e8c34ea4fa61afc',
+    mobile: '',
+    content_id: '',
     resource_id: '',
     cp_month_service_id: '600967020000006633',
-    month_biz_type: '70',
-    ring_box_service_id: '',
     crbt_month_service_id: '600927020000006631',
-    single_biz_type: '11',
+    ring_box_service_id: '',
     member_type: enums.member_type.unknown,
-    is_crbt_member: false,
-    opened_month: false,
     logined: false,
+    is_cp_month_opened: false,
+    is_crbt_member: false,
+    is_crbt_month_opened: false,
     excode: '',
-    is_cp_member: false,
     callback: ''
 };
 
