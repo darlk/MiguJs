@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>-->
+    <script src="http://m.12530.com/order/pub-ui/js/and/migu.js"></script>
+    <script src="http://m.12530.com/order/pub-ui/js/and/openMusicSDK.js"></script>
+    <script src="js/migumanager.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/migutest.css">
+</head>
+<body>
+
+<div class="button" onclick="MiguInstance().loginTypeFun(data_params.mobile, callback);">获取登陆链接地址</div>
+<div class="button" onclick="MiguInstance().loginOutFun(callback);">退出当前登陆</div>
+<div class="button" onclick="MiguInstance().getUserInfoFun(callback);">获取当前登陆用户信息</div>
+<div class="button" onclick="MiguInstance().queryStrategyBYBFun(callback);">包月包策略查询</div>
+<div class="button" onclick="MiguInstance().openRingToneFun(callback);">开通彩铃功能</div>
+<div class="button"
+     onclick="MiguInstance().getAuditionToneUrlFun(data_params.content_id, callback);">
+    获取彩铃试听地址
+</div>
+<div class="button"
+     onclick="MiguInstance().orderRingToneFun(data_params.content_id, callback);">订购彩铃
+</div>
+<div class="button" onclick="MiguInstance().giveRingToneFun(data_params.content_id, callback);">
+    赠送彩铃
+</div>
+<div class="button" onclick="MiguInstance().getUserRingBaseFun(callback);">查询个人铃音库</div>
+<div class="button" onclick="MiguInstance().setRingFun(data_params.content_id, callback);">设置默认铃音
+</div>
+<div class="button" onclick="MiguInstance().delRingFun(data_params.content_id, callback);">删除个人铃音
+</div>
+<div class="button" onclick="MiguInstance().queryUserDefaultRingFun(data_params.mobile, callback);">
+    根据手机号查询用户默认铃音
+</div>
+
+<div class="button"
+     onclick="MiguInstance().getRingDownlinkFun(data_params.content_id, callback);">获取振铃下载地址
+</div>
+
+<div class="button"
+     onclick="MiguInstance().openCPMBFun(data_params.cp_month_service_id, callback);">CP专属包月订购
+</div>
+
+<div id="divResult"></div>
+
+<script>
+
+    function callback(result) {
+
+        showResult("a", "result:", result);
+    }
+
+    window.onload = function () {
+        MiguInstance().openMiGuInitFun();
+        var tokenParam = getQueryString("token");
+        if (tokenParam && (tokenParam != null && tokenParam.length != 0)) {
+            data_params.token = tokenParam;
+
+            MiguInstance().queryOpenRingYNFun();
+            MiguInstance().queryCPMBFun(data_params.cp_month_service_id);
+        }
+
+    }
+
+    //    alert(functionName(innerCallback.queryPolicyCallback));
+
+    //    var str = "hi";
+    //    alert(typeof str);
+
+</script>
+
+</body>
+</html>

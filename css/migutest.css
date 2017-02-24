@@ -1,0 +1,21 @@
+.button {
+    width:150px;
+    height: 30px;
+    padding:5px 5px;
+    margin: 5px 5px;
+    background-color: #003366;
+    border-radius: 5px;
+    text-align: center;
+    display: block;
+    line-height: 30px;
+    font-size: 14px;
+    color: #FFFFFF;
+}
+
+.button:hover {
+    background-color: cornflowerblue;
+}
+
+#divResult {
+    width:500px;
+}
