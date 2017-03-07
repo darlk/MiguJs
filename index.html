@@ -11,7 +11,7 @@
 </head>
 <body>
 
-<div class="button" onclick="MiguInstance().loginTypeFun(data_params.mobile, callback);">获取登陆链接地址</div>
+<div class="button" onclick="MiguInstance().loginTypeFun(data_params.mobile, loginTypeCallback);">获取登陆链接地址</div>
 <div class="button" onclick="MiguInstance().loginOutFun(callback);">退出当前登陆</div>
 <div class="button" onclick="MiguInstance().getUserInfoFun(callback);">获取当前登陆用户信息</div>
 <div class="button" onclick="MiguInstance().openRingToneFun(openRingToneCallback);">开通彩铃功能</div>
@@ -54,6 +54,16 @@
 <div id="divResult"></div>
 
 <script>
+
+    function loginTypeCallback(result) {
+        if (result.resCode == return_code.success) {
+            data_params.token = result.token;
+            data_params.logined = true;
+
+            MiguInstance().queryOpenRingYNFun();
+            MiguInstance().queryMonthRingYNFun();
+        }
+    }
 
     function openRingToneCallback(result) {
 

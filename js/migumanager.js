@@ -20,9 +20,10 @@ var migu = function () {
         var params = {
             youCallbackName: functionName(callback),
             channelCode: data_params.channel_code,
-            loginType: "1",
-            // callBackUrl: "http://m.qxtimes.com",
-            callBackUrl: window.location.href, // 获取当前url
+            // loginType: "1",
+            // callBackUrl: window.location.href, // 获取当前url
+            loginType: "3",
+            callBackUrl: "", // 获取当前url
             miguToken: "",
             key: data_params.api_key,
             msisdn: msisdn
@@ -587,7 +588,7 @@ var enums = {
 };
 
 var data_params = {
-    api_key: '',
+    api_key: '6d435888ca204c8fa57f817f70f87828',
     channel_code: '002100O', // 渠道号
     token: '',
     mobile: '',

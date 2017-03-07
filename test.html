@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html lang="zh_CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>咪咕用户中心门户-登录</title>
+    <link rel="icon" href="https://passport.migu.cn/favicon32.ico" mce_href="https://passport.migu.cn/favicon32.ico"
+          type="image/x-icon"/>
+    <link rel="shortcut icon" href="https://passport.migu.cn/favicon.ico"
+          mce_href="https://passport.migu.cn/favicon.ico" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="https://passport.migu.cn/css/all.css?frame=pf&v=miguidmp_25pV1.5.14">
+</head>
+<body class="music">
+<input type="hidden" name="dispatcher" id="dispatcher-admin" value="loginPage"/>
+<input type="hidden" id="appType" value="0"/>
+<!--<input type="hidden" id="J_AccountType" value="${loginBoxType}" />-->
+    <input type="hidden" id="authNType" value="MiguPassport"/>
+<input type="hidden" id="passwordControl" value="0"/>
+<input type="hidden" id="display" value="web"/>
+<input type="hidden" id="callbackURL" value="http://localhost:63342/MiguJs/index.html?_ijt=c7phmotk7f7mrsstrc56jd77ob"/>
+<input type="hidden" id="relayState"
+       value="002100ON|http://localhost:63342/MiguJs/index.html?_ijt=c7phmotk7f7mrsstrc56jd77ob"/>
+<input type="hidden" id="J_ParentUrl" value=""/>
+<input type="hidden" id="J_UpgradeUrl"
+       value="https://passport.migu.cn/portal/user/upgrade/UpgradePage?sourceid=220015"/>
+<input type="hidden" id="J_RegUrl" value="https://passport.migu.cn/portal/user/register/msisdn?sourceid=220015"/>
+<div class="login-other">
+    <div class="aui_titleBar">
+        <div class="aui_title"><span class="aui-cmcc"></span><q></q>
+            <span class="aui-one">咪咕帐号登录</span></div>
+    </div>
+    <div class="form-login J_FormLogin">
+        <div class="form-tab J_Tabs">
+            <ul class="clearfix">
+                <li class="active">密码登录</li>
+                <li class="fr">短信登录</li>
+            </ul>
+        </div>
+        <!--<form class="J_ValidPsdForm" method="post" action="https://passport.migu.cn/authn"-->
+              <!--cmcc-rsaAjax="https://passport.migu.cn/password/publickey style="display:none;">-->
+            <!--<input type="hidden" name="sourceID" value="220015"/>-->
+            <!--<div class="form-item">-->
+                <!--<input type="text" class="txt" id="J_AccountPsd" name="loginID" maxlength="128"-->
+                       <!--placeholder="手机/邮箱/用户名/和通行证"/>-->
+                <!--<em class="em-account"></em></div>-->
+            <!--<div class="form-item">-->
+                <!--<input type="password" class="txt" id="J_PasswordPsd" maxlength="16" placeholder="密码"/>-->
+                <!--<input type="hidden" class="J_RsaPsd" name="enpassword"/>-->
+                <!--<em class="em-psd"></em></div>-->
+            <!--<div class="form-item form-item-mb15" style="">-->
+                <!--<input type="text" class="txt" id="J_ImgCodePsd" name="captcha" maxlength="2" placeholder="请输入下图中的计算结果 "-->
+                       <!--cmcc-ajax="https://passport.migu.cn/captcha/graph/check"/>-->
+                <!--<em class="em-img"></em>-->
+                <!--<div class="imgcode J_ImgCodeView">-->
+                    <!--<img alt="图形验证码" title="图形验证码" cmcc-ajax="https://passport.migu.cn/captcha/graph?imgcodeType=1"/>-->
+                    <!--<a href="javascript:;">看不清</a>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-item form-item-mb15">-->
+                <!--<input type="submit" value="登录" class="login-submit"/></div>-->
+            <!--<div class="noform-item">-->
+                <!--<a href="https://passport.migu.cn/portal/user/passwordretrieve?sourceid=220015&relayState=002100ON|http://localhost:63342/MiguJs/index.html?_ijt=c7phmotk7f7mrsstrc56jd77ob"-->
+                   <!--target="_blank">忘记密码</a>-->
+                <!--<a href="javascript:;" target="_parent">|</a>-->
+                <!--<a href="https://passport.migu.cn/portal/user/register/msisdn?sourceid=220015&relayState=002100ON|http://localhost:63342/MiguJs/index.html?_ijt=c7phmotk7f7mrsstrc56jd77ob"-->
+                   <!--target="_blank">注册新帐号</a>-->
+            <!--</div>-->
+        <!--</form>-->
+        <form class="J_ValidOneForm" method="post" action="https://passport.migu.cn/authn/sim"
+              cmcc-msgAjax="https://passport.migu.cn/authn/dynamicpassword"
+              cmcc-pollAjax="get,https://passport.migu.cn/authn/sim/result" ">
+            <input type="hidden" id="sourceID" name="sourceID" value="220015"/>
+            <div class="form-item">
+                <input type="text" class="txt" id="J_PhoneOne" name="msisdn" maxlength="11" placeholder="手机"/>
+                <em class="em-account"></em>
+            </div>
+            <div class="form-item" style="display:none;">
+                <input type="hidden" id="J_SecurityCode" name="securityCode" value=""/>
+                <p class="dynamiccode">SIM安全码：<span></span></p>
+            </div>
+            <div class="form-item form-item-mb15" style="">
+                <input type="text" class="txt" id="J_ImgCodeOne" name="captcha" maxlength="2" placeholder="请输入下图中的计算结果 "
+                       cmcc-ajax="https://passport.migu.cn/captcha/graph/check"/>
+                <em class="em-img"></em>
+                <div class="imgcode J_ImgCodeView">
+                    <img alt="图形验证码" title="图形验证码" cmcc-ajax="https://passport.migu.cn/captcha/graph?imgcodeType=2"/>
+                    <a href="javascript:;">看不清</a></div>
+            </div>
+            <div class="form-item" style="">
+                <input type="text" class="txt txt2" id="J_MsgCodeOne" name="dynamicPassword" maxlength="6"
+                       placeholder="动态短信密码"/>
+                <em class="em-msg"></em>
+                <input type="button" class="btn" value="获取"
+                       cmcc-ajax="get,https://passport.migu.cn/login/dynamicpassword" id="J_GetMsgCodeOne"/>
+            </div>
+            <div class="form-item form-item0"><input type="submit" value="登录" class="login-submit"/></div>
+            <!--<div class="noform-item">-->
+                <!--<a href="https://passport.migu.cn/portal/user/register/msisdn?sourceid=220015&relayState=002100ON|http://localhost:63342/MiguJs/index.html?_ijt=c7phmotk7f7mrsstrc56jd77ob"-->
+                   <!--target="_blank">注册新帐号</a>-->
+            <!--</div>-->
+        </form>
+    </div>
+</div>
+</body>
+</html>
+<script src="https://passport.migu.cn/js/seajs/base.min.js?v=miguidmp_25pV1.5.14" id="seajsFile"></script>
