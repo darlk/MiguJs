@@ -4,59 +4,129 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <!--<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>-->
+
+    <link rel="stylesheet" type="text/css" href="css/migutest.css">
+
     <script src="http://m.12530.com/order/pub-ui/js/and/migu.js"></script>
     <script src="http://m.12530.com/order/pub-ui/js/and/openMusicSDK.js"></script>
+
     <script src="js/migumanager.js"></script>
-    <link rel="stylesheet" type="text/css" href="css/migutest.css">
+
 </head>
 <body>
 
-<div class="button" onclick="MiguInstance().loginTypeFun(data_params.mobile, loginTypeCallback);">获取登陆链接地址</div>
-<div class="button" onclick="MiguInstance().loginOutFun(callback);">退出当前登陆</div>
-<div class="button" onclick="MiguInstance().getUserInfoFun(callback);">获取当前登陆用户信息</div>
-<div class="button" onclick="MiguInstance().openRingToneFun(openRingToneCallback);">开通彩铃功能</div>
-<div class="button"
-     onclick="MiguInstance().getAuditionToneUrlFun(data_params.content_id, callback);">
-    获取彩铃试听地址
-</div>
-<div class="button"
-     onclick="MiguInstance().orderRingToneFun(data_params.content_id, callback);">订购彩铃
-</div>
-<div class="button" onclick="MiguInstance().getUserRingBaseFun(callback);">查询个人铃音库</div>
-<div class="button" onclick="MiguInstance().setRingFun(data_params.content_id, callback);">设置默认铃音
-</div>
-<div class="button" onclick="MiguInstance().delRingFun(data_params.content_id, callback);">删除个人铃音
-</div>
-<div class="button" onclick="MiguInstance().queryUserDefaultRingFun(data_params.mobile, callback);">
-    根据手机号查询用户默认铃音
-</div>
+<ul>
+    <li>
+        <div class="button" id="loginTypeFun" onclick="commit(this.id)">获取登陆链接地址</div>
+    </li>
+    <li>
+        <div class="button" id="loginOutFun" onclick="commit(this.id)">退出当前登陆</div>
+    </li>
+    <li>
+        <div class="button" id="getUserInfoFun" onclick="commit(this.id)">获取当前登陆用户信息</div>
+    </li>
+</ul>
 
-<div class="button"
-     onclick="MiguInstance().getRingDownlinkFun(data_params.content_id, callback);">获取振铃下载地址
-</div>
 
-<div class="button"
-     onclick="MiguInstance().openCPMBFun(data_params.cp_month_service_id, openCPMBCallback);">CP专属包月订购
-</div>
+<ul>
+    <li>
+        <div class="button" id="queryOpenRingYNFun" onclick="commit(this.id)">查询用户是否开通了彩铃功能</div>
+    </li>
+    <li>
+        <div class="button" id="openRingToneFun" onclick="commit(this.id)">开通彩铃功能</div>
+    </li>
+    <li>
+        <div class="button" id="getAuditionToneUrlFun" onclick="commit(this.id)">获取彩铃试听地址</div>
+    </li>
+    <li>
+        <div class="button" id="orderRingToneFun" onclick="commit(this.id)">订购彩铃</div>
+    </li>
+    <li>
+        <div class="button" id="getUserRingBaseFun" onclick="commit(this.id)">查询个人铃音库</div>
+    </li>
+    <li>
+        <div class="button" id="setRingFun" onclick="commit(this.id)">设置默认铃音</div>
+    </li>
+    <li>
+        <div class="button" id="delRingFun" onclick="commit(this.id)">删除个人铃音</div>
+    </li>
+    <li>
+        <div class="button" id="queryUserDefaultRingFun" onclick="commit(this.id)">根据手机号查询用户默认铃音</div>
+    </li>
+</ul>
+<ul>
+    <li>
+        <div class="button" id="getRingDownlinkFun" onclick="commit(this.id)">获取振铃下载地址</div>
+    </li>
+</ul>
+<ul>
+    <li>
+        <div class="button" id="openCPMBFun" onclick="commit(this.id)">CP专属包月订购</div>
+    </li>
+    <li>
+        <div class="button" id="cancelCPMBFun" onclick="commit(this.id)">CP专属包月退订</div>
+    <li>
+</ul>
+<ul>
+    <li>
+        <div class="button" id="orderMonthRingFun" onclick="commit(this.id)">彩铃包月订购</div>
+    </li>
+    <li>
+        <div class="button" id="cancelMonthRingFun" onclick="commit(this.id)">彩铃包月退订</div>
+    <li>
+</ul>
 
-<div class="button"
-     onclick="MiguInstance().cancelCPMBFun(data_params.cp_month_service_id, cancelCPMBCallback);">CP专属包月退订
-</div>
-
-<div class="button"
-     onclick="MiguInstance().orderMonthRingFun(data_params.crbt_month_service_id, orderMonthRingCallback);">彩铃包月订购
-</div>
-
-<div class="button"
-     onclick="MiguInstance().cancelMonthRingFun(data_params.crbt_month_service_id, cancelMonthRingCallback);">彩铃包月退订
-</div>
 
 <div id="divResult"></div>
 
 <script>
 
+
+    function commit(id) {
+        if (id === 'loginTypeFun') {
+            MiguInstance().loginTypeFun(data_params.mobile, loginTypeCallback);
+        } else if (id === 'loginOutFun') {
+            MiguInstance().loginOutFun(callback);
+        } else if (id === 'getUserInfoFun') {
+            MiguInstance().getUserInfoFun(callback);
+        } else if (id === 'openRingToneFun') {
+            MiguInstance().openRingToneFun(openRingToneCallback);
+        } else if (id === 'getAuditionToneUrlFun') {
+            MiguInstance().getAuditionToneUrlFun(data_params.content_id, callback);
+        } else if (id === 'orderRingToneFun') {
+            if (data_params.is_crbt_month_opened) {
+                data_params.biz_type = "70";
+            } else {
+                data_params.biz_type = "11";
+            }
+            MiguInstance().orderRingToneFun(data_params.content_id, callback);
+        } else if (id === 'getUserRingBaseFun') {
+            MiguInstance().getUserRingBaseFun(callback);
+        } else if (id === 'setRingFun') {
+            MiguInstance().setRingFun(data_params.content_id, callback);
+        } else if (id === 'delRingFun') {
+            MiguInstance().delRingFun(data_params.content_id, callback);
+        } else if (id === 'queryUserDefaultRingFun') {
+            MiguInstance().queryUserDefaultRingFun(data_params.mobile, callback);
+        } else if (id === 'getRingDownlinkFun') {
+            MiguInstance().getRingDownlinkFun(data_params.content_id, callback);
+        } else if (id === 'openCPMBFun') {
+            MiguInstance().openCPMBFun(data_params.cp_month_service_id, openCPMBCallback);
+        } else if (id === 'cancelCPMBFun') {
+            MiguInstance().cancelCPMBFun(data_params.cp_month_service_id, cancelCPMBCallback);
+        } else if (id === 'orderMonthRingFun') {
+            MiguInstance().orderMonthRingFun(data_params.crbt_month_service_id, orderMonthRingCallback);
+        } else if (id === 'cancelMonthRingFun') {
+            MiguInstance().cancelMonthRingFun(data_params.crbt_month_service_id, cancelMonthRingCallback);
+        } else if (id === 'queryOpenRingYNFun') {
+            MiguInstance().queryOpenRingYNFun();
+        } else {
+            showResult("a", "result:", "不存在类型");
+        }
+    }
+
     function loginTypeCallback(result) {
-        if (result.resCode == return_code.success) {
+        if (result.resCode === return_code.success) {
             data_params.token = result.token;
             data_params.logined = true;
 
@@ -69,10 +139,10 @@
 
         showResult("a", "result:", result);
 
-        if (arguments.length == 2) { // 带有错误码
+        if (arguments.length === 2) { // 带有错误码
             showResult("a", "result:", "policy error");
         } else {
-            data_params.is_crbt_member = (result.resCode == return_code.success);
+            data_params.is_crbt_member = (result.resCode === return_code.success);
         }
     }
 
@@ -80,10 +150,10 @@
 
         showResult("a", "result:", result);
 
-        if (arguments.length == 2) { // 带有错误码
+        if (arguments.length === 2) { // 带有错误码
             showResult("a", "result:", "policy error");
         } else {
-            data_params.is_cp_month_opened = (result.resCode == return_code.success);
+            data_params.is_cp_month_opened = (result.resCode === return_code.success);
         }
 
     }
@@ -92,7 +162,7 @@
 
         showResult("a", "result:", result);
 
-        data_params.is_cp_month_opened = !(result.resCode == return_code.success);
+        data_params.is_cp_month_opened = !(result.resCode === return_code.success);
 
     }
 
@@ -100,10 +170,10 @@
 
         showResult("a", "result:", result);
 
-        if (arguments.length == 2) { // 带有错误码
+        if (arguments.length === 2) { // 带有错误码
             showResult("a", "result:", "policy error");
         } else {
-            data_params.is_crbt_month_opened = (result.resCode == return_code.success);
+            data_params.is_crbt_month_opened = (result.resCode === return_code.success);
         }
 
     }
@@ -112,7 +182,7 @@
 
         showResult("a", "result:", result);
 
-        data_params.is_crbt_month_opened = !(result.resCode == return_code.success);
+        data_params.is_crbt_month_opened = !(result.resCode === return_code.success);
 
     }
 
@@ -122,13 +192,14 @@
     }
 
     window.onload = function () {
-        MiguInstance().openMiGuInitFun();
+        data_params.debug = true;
+        MiguInstance().openMiGuInitFun(callback);
 
-        data_params.mobile = "13874442470";
+        data_params.mobile = "13435607567";
         data_params.content_id = "51dd4e04fec2ac159e8c34ea4fa61afc";
 
         var tokenParam = getQueryString("token");
-        if (tokenParam && (tokenParam != null && tokenParam.length != 0)) {
+        if (tokenParam && (tokenParam !== null && tokenParam.length !== 0)) {
             data_params.token = tokenParam;
             data_params.logined = true;
 
@@ -138,12 +209,9 @@
 //            MiguInstance().queryCPMBFun(data_params.cp_month_service_id);
         }
 
+
+
     }
-
-    //    alert(functionName(innerCallback.queryPolicyCallback));
-
-    //    var str = "hi";
-    //    alert(typeof str);
 
 </script>
 
